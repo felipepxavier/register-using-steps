@@ -22,6 +22,7 @@ export default {
       secondary: '#beffbe',
       white: '#FAFAFA',
       black: '#0C0C0C',
+      red: '#DC143C'
      
     },
     spacings: {
