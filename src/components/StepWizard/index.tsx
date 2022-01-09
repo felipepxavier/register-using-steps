@@ -41,13 +41,10 @@ const StepWizard = ({ totalSteps }: StepWizardProps) => {
   (index === activedStepIndex ? {...step, active: true} : {...step, active: false})
 
   const handleNextStep = (nextStep: number) => {
-    handleValidateValues()
+     handleValidateValues()
     .then((validate: any) => {
       const isError = Object.values(validate).some(isError => typeof isError === 'boolean' && isError );
-      
-      if(isError) {
-        setErrors(validate);
-      }
+      setErrors(validate);
       return isError;
     })
     .then((isError) => {
