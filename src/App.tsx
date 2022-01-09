@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components';
 import ListClient from './pages/ListClient';
 import NewClient from './pages/NewClient';
 import theme from './styles/theme';

@@ -13,16 +13,16 @@ export default createGlobalStyle`
   }
 
   ${({ theme }) => css`
-
     html {
-        font-size: 10px;
-        background: ${theme.colors.white};
+      font-size: 10px;
+      background: ${theme.colors.white};
     }
 
-    body, input, button {
+    body,
+    input,
+    button {
       font-family: ${theme.font.family};
     }
-    
   `}
  
   button {

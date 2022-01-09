@@ -1,52 +1,51 @@
-import styled, {css, DefaultTheme} from 'styled-components';
+import styled, { css, DefaultTheme } from 'styled-components';
 
-
-export const Title = styled.h1`
-
-`;
+export const Title = styled.h1``;
 
 export const Step = styled.section`
-    padding: 10px;
+  padding: 10px;
 `;
 
 type InputProps = {
-    isError?: boolean
-    theme: DefaultTheme
-}
+  isError?: boolean;
+  theme: DefaultTheme;
+};
 
 export const Input = styled.input<InputProps>`
-    width: 100%;
-    max-width: 20rem;
-    padding: 5px;
+  width: 100%;
+  max-width: 20rem;
+  padding: 5px;
 
-    ${({isError, theme }) => isError && css`
-        color: ${theme.colors.red};
-        border-color: ${theme.colors.red};
+  ${({ isError, theme }) =>
+    isError &&
+    css`
+      color: ${theme.colors.red};
+      border-color: ${theme.colors.red};
     `}
 `;
 
 export const Label = styled.label`
-    color: red;
+  color: red;
 `;
 
 export const Message = styled.span`
-    ${({ theme }) => css`
-        color: ${theme.colors.red};
-    `}
+  ${({ theme }) => css`
+    color: ${theme.colors.red};
+  `}
 `;
 
 export const Field = styled.div`
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Navigate = styled.div`
-    padding: 10px;
+  padding: 10px;
 `;
 
 export const Button = styled.button.attrs({
-    type: 'button'
+  type: 'button',
 })`
-    padding: 5px;
-    color: red;
+  padding: 5px;
+  color: red;
 `;
