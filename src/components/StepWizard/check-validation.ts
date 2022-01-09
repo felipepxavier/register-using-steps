@@ -17,7 +17,9 @@ const checkValidation = (
     if (field.required) {
       const value = saveValues[field.name];
       result.isError = value ? value.length === 0 : true;
-      result.message = field?.requiredMessage || 'Campo obrigatório';
+      result.message = result.isError
+        ? field?.requiredMessage || 'Campo obrigatório'
+        : '';
     }
 
     if (!result.isError && field.customRegexValidation) {
