@@ -1,11 +1,14 @@
-import { Field } from '.';
+import { Field, saveValuesProps } from '.';
 
 export type validateResult = {
   [key: string]: boolean | string;
 };
 
-const checkValidation = (saveValues: any, fields: any): validateResult => {
-  return fields.reduce((acc: any, field: Field) => {
+const checkValidation = (
+  saveValues: saveValuesProps,
+  fields: Field[]
+): validateResult => {
+  return fields.reduce((acc, field: Field) => {
     const result = {
       isError: false,
       message: '',
