@@ -58,6 +58,10 @@ function StepWizard({ totalSteps }: StepWizardProps) {
     });
 
   const handleNextStep = (nextStep: number) => {
+    if (nextStep === steps.length) {
+      return;
+    }
+
     handleValidateValues()
       .then((validate) => {
         const isError = Object.values(validate).some(
@@ -75,6 +79,10 @@ function StepWizard({ totalSteps }: StepWizardProps) {
   };
 
   const handlePreviousStep = (previousStep: number) => {
+    if (previousStep < 0) {
+      return;
+    }
+
     setSteps((oldState) => oldState.map(handleUpdateActivedStep(previousStep)));
   };
 
@@ -106,10 +114,16 @@ function StepWizard({ totalSteps }: StepWizardProps) {
       ))}
 
       <S.Navigate>
-        <S.Button onClick={() => handlePreviousStep(isActivatedIndex - 1)}>
+        <S.Button
+          onClick={() => handlePreviousStep(isActivatedIndex - 1)}
+          isDisabled={isActivatedIndex - 1 < 0}
+        >
           Voltar
         </S.Button>
-        <S.Button onClick={() => handleNextStep(isActivatedIndex + 1)}>
+        <S.Button
+          onClick={() => handleNextStep(isActivatedIndex + 1)}
+          isDisabled={isActivatedIndex + 1 > steps.length}
+        >
           Continuar
         </S.Button>
       </S.Navigate>
