@@ -14,16 +14,21 @@ describe('<StepWizard />', () => {
                   name: 'name',
                   label: 'Nome',
                   required: true,
+                  requiredMessage: 'Campo obrigatório',
                 }, 
                 {
                   name: 'last-name',
                   label: 'Sobrenome',
                   required: true,
+                  requiredMessage: 'Campo obrigatório',
                 }, 
                 {
                   name: 'email',
                   label: 'E-mail',
                   required: true,
+                  requiredMessage: 'Campo obrigatório',
+                  customRegexValidation: '[a-z0-9]+@[a-z]+\.[a-z]{2,3}',
+                  customRegexValidationMessage: 'E-mail inválido'
                 },
                 {
                   name: 'phone',
