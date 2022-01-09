@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {css, DefaultTheme} from 'styled-components';
 
 
 export const Title = styled.h1`
@@ -9,10 +9,20 @@ export const Step = styled.section`
     padding: 10px;
 `;
 
-export const Input = styled.input`
+type InputProps = {
+    isError?: boolean
+    theme: DefaultTheme
+}
+
+export const Input = styled.input<InputProps>`
     width: 100%;
     max-width: 20rem;
     padding: 5px;
+
+    ${({isError, theme }) => isError && css`
+        color: ${theme.colors.red};
+        border-color: ${theme.colors.red};
+    `}
 `;
 
 export const Label = styled.label`
