@@ -1,4 +1,4 @@
-import styled, { css, DefaultTheme } from 'styled-components';
+import styled, { css, DefaultTheme, keyframes } from 'styled-components';
 
 export const Title = styled.h1`
   ${({ theme }) => css`
@@ -22,15 +22,24 @@ type InputProps = {
   theme: DefaultTheme;
 };
 
+const leftAnimation = keyframes`
+  0% { transform: translateX(-10px); opacity: 0 }
+  100% {transform: translateX(0) opacity: 1 }
+`;
+
 export const Input = styled.input<InputProps>`
   width: 100%;
   height: 3.8rem;
+
+  animation-name: ${leftAnimation};
+  animation-duration: 500ms;
 
   ${({ theme }) => css`
     color: ${theme.colors.gray};
     border: 2px solid ${theme.colors.gray};
     padding: ${theme.spacings.xxsmall} ${theme.spacings.small};
     border-radius: ${theme.border.radius};
+    font-size: ${theme.font.sizes.small};
 
     &:focus {
       outline: 1px solid ${theme.colors.primary};
@@ -72,8 +81,10 @@ export const Field = styled.div`
 export const Navigate = styled.div`
   display: flex;
   justify-content: space-between;
+
   ${({ theme }) => css`
-    margin-top: ${theme.spacings.small};
+    margin-top: ${theme.spacings.large};
+    gap: ${theme.spacings.xsmall};
   `}
 `;
 
@@ -99,4 +110,15 @@ export const Button = styled.button.attrs({
       filter: brightness(1.1);
     }
   `}
+
+  ${({ theme, isDisabled }) =>
+    isDisabled &&
+    css`
+      background: ${theme.colors.gray};
+      cursor: not-allowed;
+
+      &:hover {
+        filter: brightness(1);
+      }
+    `}
 `;

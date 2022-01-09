@@ -30,5 +30,6 @@ export default {
     xsmall: '0.8rem',
     small: '1.6rem',
     medium: '2.4rem',
+    large: '3.2rem',
   },
 };
