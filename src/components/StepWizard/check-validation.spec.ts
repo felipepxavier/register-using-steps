@@ -24,7 +24,7 @@ describe('checkValidation()', () => {
     const validate = checkValidation(values, fields);
     expect(validate).toEqual({
       name: false,
-      'name-message': 'Campo obrigatório',
+      'name-message': '',
       email: true,
       'email-message': 'Valor inválido',
     });
@@ -55,7 +55,7 @@ describe('checkValidation()', () => {
     const validate = checkValidation(values, fields);
     expect(validate).toEqual({
       name: false,
-      'name-message': 'requiredMessage customized',
+      'name-message': '',
       email: true,
       'email-message': 'customRegexValidationMessage customized',
     });
