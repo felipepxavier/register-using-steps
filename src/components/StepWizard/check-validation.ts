@@ -27,7 +27,9 @@ const checkValidation = (
       const value = saveValues[field.name];
 
       result.isError = !validate.test(value);
-      result.message = field?.customRegexValidationMessage || 'Valor inválido';
+      result.message = result.isError
+        ? field?.customRegexValidationMessage || 'Valor inválido'
+        : '';
     }
 
     return {
