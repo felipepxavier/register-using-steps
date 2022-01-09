@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import * as S from './styles';
 
-
 const stepsField = [
   {
     active: true,
@@ -54,7 +53,8 @@ const stepsField = [
 type Field = {
   name: string,
   label: string,
-  required: boolean
+  required: boolean,
+  customRegexValidation?: string
 }
 
 type Step = {
@@ -66,26 +66,74 @@ type StepWizardProps = {
   totalSteps: Step[]
 }
 
+type saveValuesProps = {
+  [key: string]: string
+}
+
+type errorProps = {
+  [key: string]: boolean
+}
+
 const StepWizard = ({ totalSteps = stepsField }: StepWizardProps) => {
   const [steps, setSteps] = useState<Step[]>(totalSteps);
+  const [saveValues, setSaveValues] = useState({} as saveValuesProps);
+  const [errors, setErrors] = useState({} as errorProps);
 
-const isActivatedIndex = useMemo(() => {
-  return steps.findIndex(step => step.active)
-},[steps])
+  const isActivatedIndex = useMemo(() => {
+    return steps.findIndex(step => step.active)
+  },[steps])
 
-const handleUpdateActivedStep = (activedStepIndex: number) => (step: Step, index: number) => 
-(index === activedStepIndex ? {...step, active: true} : {...step, active: false})
+  const handleUpdateActivedStep = (activedStepIndex: number) => (step: Step, index: number) => 
+  (index === activedStepIndex ? {...step, active: true} : {...step, active: false})
 
 
-const handleNextStep = (nextStep: number) => {
-    console.log(nextStep)
-    setSteps(oldState => oldState.map(handleUpdateActivedStep(nextStep)))
-}
+  const handleNextStep = (nextStep: number) => {
+    handleValidateValues()
+    .then((validate: any) => {
+      const isError = Object.values(validate).some(isError => isError);
+    
+      if(isError) {
+        console.log(validate)
+        setErrors(validate);
+      }
+      return isError;
+    })
+    .then((isError) => {
+      if(isError) { return }
+      setSteps(oldState => oldState.map(handleUpdateActivedStep(nextStep)))
+    });
+  }
 
-const handlePreviousStep = (previousStep: number) => {
-  console.log(previousStep)
-  setSteps(oldState => oldState.map(handleUpdateActivedStep(previousStep)))
-}
+  const handlePreviousStep = (previousStep: number) => {
+    setSteps(oldState => oldState.map(handleUpdateActivedStep(previousStep)))
+  }
+
+  const handleValidateValues = () => new Promise((resolve, reject) => {
+    try {
+        const validate = steps[isActivatedIndex].fields.reduce((acc, field) => {
+          let isError = false;
+          if(field.required) {
+            const value = saveValues[field.name];
+            isError = value ? value.length === 0 : true;
+          };
+    
+          if(!isError && field.customRegexValidation) {
+            const validate = RegExp(`${field.customRegexValidation}`);
+            const value = saveValues[field.name];
+            isError = validate.test(value)
+          }
+         
+          return {...acc,  [field.name]: isError};
+        }, {})
+        resolve(validate);
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+  const handleChangeValue = (name: string, value: string) => {
+    setSaveValues(oldState => ({ ...oldState, [name]: value }))
+  }
 
   return (
 
@@ -97,7 +145,14 @@ const handlePreviousStep = (previousStep: number) => {
         return (
           <S.Field key={field.name}>
             <S.Label htmlFor={field.name}>{field.label}</S.Label>
-            <S.Input id={field.name} name={field.name} />
+            <S.Input 
+              id={field.name} 
+              name={field.name}
+              placeholder={field.label} 
+              isError={errors[field.name]} 
+              onChange={(event) => handleChangeValue(field.name, event.target.value)}
+              value={saveValues[field.name] || ''}
+            />
           </S.Field>
         )})
       }
