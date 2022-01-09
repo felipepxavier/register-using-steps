@@ -3,6 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import ListClient from './pages/ListClient';
 import NewClient from './pages/NewClient';
 import theme from './styles/theme';
+import GlobalStyles from './styles/global';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/cadastros" element={<ListClient />} />
         </Routes>
       </BrowserRouter>
+      <GlobalStyles />
     </ThemeProvider>
   );
 }
