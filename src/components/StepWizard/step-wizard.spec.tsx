@@ -1,6 +1,6 @@
 import { screen, fireEvent, act } from '@testing-library/react';
 import { renderWithTheme } from 'utils/tests/helpers';
-import { StepWizard } from '.';
+import { Steps } from './Steps';
 
 describe('<StepWizard />', () => {
   it('should render component', () => {
@@ -58,7 +58,9 @@ describe('<StepWizard />', () => {
       },
     ];
 
-    renderWithTheme(<StepWizard totalSteps={stepsField} />);
+    renderWithTheme(
+      <Steps totalSteps={stepsField} handleSession={jest.fn()} />
+    );
 
     expect(screen.getByText(/preencha os campos/i)).toBeInTheDocument();
   });
@@ -113,7 +115,9 @@ describe('<StepWizard />', () => {
       },
     ];
 
-    renderWithTheme(<StepWizard totalSteps={stepsField} />);
+    renderWithTheme(
+      <Steps totalSteps={stepsField} handleSession={jest.fn()} />
+    );
 
     const nameInput = screen.getByPlaceholderText(/^nome/i);
     const lasNameInput = screen.getByPlaceholderText(/sobrenome/i);
@@ -181,7 +185,9 @@ describe('<StepWizard />', () => {
         ],
       },
     ];
-    renderWithTheme(<StepWizard totalSteps={stepsField} />);
+    renderWithTheme(
+      <Steps totalSteps={stepsField} handleSession={jest.fn()} />
+    );
 
     await act(async () => {
       const btnNext = screen.getByText('Continuar');
@@ -240,7 +246,9 @@ describe('<StepWizard />', () => {
         ],
       },
     ];
-    renderWithTheme(<StepWizard totalSteps={stepsField} />);
+    renderWithTheme(
+      <Steps totalSteps={stepsField} handleSession={jest.fn()} />
+    );
 
     await act(async () => {
       const btnBack = screen.getByText('Voltar');
@@ -302,7 +310,9 @@ describe('<StepWizard />', () => {
         ],
       },
     ];
-    renderWithTheme(<StepWizard totalSteps={stepsField} />);
+    renderWithTheme(
+      <Steps totalSteps={stepsField} handleSession={jest.fn()} />
+    );
 
     const nameInput = screen.getByPlaceholderText(/^nome/i);
     const lasNameInput = screen.getByPlaceholderText(/sobrenome/i);
