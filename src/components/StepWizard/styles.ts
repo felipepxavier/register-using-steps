@@ -29,6 +29,12 @@ export const Label = styled.label`
     color: red;
 `;
 
+export const Message = styled.span`
+    ${({ theme }) => css`
+        color: ${theme.colors.red};
+    `}
+`;
+
 export const Field = styled.div`
     display: flex;
     flex-direction: column;
