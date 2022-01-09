@@ -20,7 +20,7 @@ type StepWizardProps = {
   totalSteps: Step[];
 };
 
-type saveValuesProps = {
+export type saveValuesProps = {
   [key: string]: string;
 };
 
