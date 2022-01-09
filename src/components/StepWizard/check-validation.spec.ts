@@ -32,6 +32,43 @@ describe('checkValidation()', () => {
                 }
             )
     })
+
+
+    
+    it('should customize message error', () => {
+        const values = {
+            'name': 'test',
+            'email': 'test',
+        };
+
+        const fields = [
+            {
+                name: 'name',
+                label: 'Nome',
+                required: true,
+                requiredMessage: 'requiredMessage customized'
+            },
+            {
+                name: 'email',
+                label: 'E-mail',
+                required: true,
+                customRegexValidation: '[a-z0-9]+@[a-z]+\.[a-z]{2,3}',
+                customRegexValidationMessage: 'customRegexValidationMessage customized'
+            },
+        ]
+
+        const validate = checkValidation(values, fields);
+        expect(validate).toEqual(
+                {
+                    name: false,
+                    "name-message": "requiredMessage customized", 
+                    email: true,
+                    'email-message': "customRegexValidationMessage customized",
+                }
+            )
+        
+    })
+    
     
     
 })
