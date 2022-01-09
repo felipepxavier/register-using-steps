@@ -1,9 +1,20 @@
 import styled, { css, DefaultTheme } from 'styled-components';
 
-export const Title = styled.h1``;
+export const Title = styled.h1`
+  ${({ theme }) => css`
+    color: ${theme.colors.primary};
+    font-size: ${theme.font.sizes.xlarge};
+    text-align: center;
+  `}
+`;
 
 export const Step = styled.section`
-  padding: 10px;
+  max-width: 40rem;
+  width: 100%;
+
+  ${({ theme }) => css`
+    padding: ${theme.spacings.medium};
+  `}
 `;
 
 type InputProps = {
@@ -13,8 +24,19 @@ type InputProps = {
 
 export const Input = styled.input<InputProps>`
   width: 100%;
-  max-width: 20rem;
-  padding: 5px;
+  height: 3.8rem;
+
+  ${({ theme }) => css`
+    color: ${theme.colors.gray};
+    border: 2px solid ${theme.colors.gray};
+    padding: ${theme.spacings.xxsmall} ${theme.spacings.small};
+    border-radius: ${theme.border.radius};
+
+    &:focus {
+      outline: 1px solid ${theme.colors.primary};
+      border-color: ${theme.colors.primary};
+    }
+  `};
 
   ${({ isError, theme }) =>
     isError &&
@@ -25,27 +47,56 @@ export const Input = styled.input<InputProps>`
 `;
 
 export const Label = styled.label`
-  color: red;
+  ${({ theme }) => css`
+    color: ${theme.colors.primary};
+    font-size: ${theme.font.sizes.medium};
+  `}
 `;
 
 export const Message = styled.span`
   ${({ theme }) => css`
     color: ${theme.colors.red};
+    font-size: ${theme.font.sizes.xsmall};
   `}
 `;
 
 export const Field = styled.div`
   display: flex;
   flex-direction: column;
+
+  ${({ theme }) => css`
+    margin: ${theme.spacings.small} 0;
+  `}
 `;
 
 export const Navigate = styled.div`
-  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  ${({ theme }) => css`
+    margin-top: ${theme.spacings.small};
+  `}
 `;
+
+type ButtonProps = {
+  isDisabled: boolean;
+};
 
 export const Button = styled.button.attrs({
   type: 'button',
-})`
-  padding: 5px;
-  color: red;
+})<ButtonProps>`
+  ${({ theme }) => css`
+    color: ${theme.colors.white};
+    background: ${theme.colors.primary};
+    border: none;
+    padding: ${theme.spacings.xsmall} ${theme.spacings.small};
+    border-radius: ${theme.border.radius};
+    font-size: ${theme.font.sizes.medium};
+    max-width: 14rem;
+    width: 100%;
+    transition: 300ms;
+
+    &:hover {
+      filter: brightness(1.1);
+    }
+  `}
 `;
