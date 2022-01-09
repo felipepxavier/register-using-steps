@@ -33,8 +33,6 @@ describe('checkValidation()', () => {
             )
     })
 
-
-    
     it('should customize message error', () => {
         const values = {
             'name': 'test',
@@ -68,7 +66,5 @@ describe('checkValidation()', () => {
             )
         
     })
-    
-    
     
 })

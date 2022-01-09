@@ -1,9 +1,10 @@
-import { screen, fireEvent } from '@testing-library/react'
+import { screen, fireEvent, act } from '@testing-library/react'
+import React from 'react';
 import { renderWithTheme } from 'utils/tests/helpers'
 import { StepWizard } from '.'
 
 describe('<StepWizard />', () => {
-    
+
     it('should render component', () => {
         const stepsField = [
             {
@@ -58,11 +59,14 @@ describe('<StepWizard />', () => {
               ]
             }
           ]
-        renderWithTheme(<StepWizard totalSteps={stepsField} />)
+        
+        renderWithTheme(<StepWizard totalSteps={stepsField} />);
+        
         expect(screen.getByText(/preencha os campos/i)).toBeInTheDocument()
     })
 
     it('should navigate steps if validate values on click in next', async () => {
+
         const stepsField = [
             {
               active: true,
@@ -112,7 +116,9 @@ describe('<StepWizard />', () => {
             }
           ]
           
+      
       renderWithTheme(<StepWizard totalSteps={stepsField} />);
+      
 
        const nameInput = screen.getByPlaceholderText(/^nome/i);
        const lasNameInput = screen.getByPlaceholderText(/sobrenome/i);
@@ -122,14 +128,16 @@ describe('<StepWizard />', () => {
        fireEvent.change(lasNameInput, {target: {value: 'lastName'}})
        fireEvent.change(emailInput, {target: {value: 'email'}})
 
+       await act(async () => {
         const btnNext = screen.getByText('Continuar')
         fireEvent.click(btnNext)
-        
+       })
         const inputCep = await screen.findByText('CEP');
+       
         expect(inputCep).toBeInTheDocument()
     })
     
-    it('should not navigate if not validate values on click in next', () => {
+    it('should not navigate if not validate values on click in next', async () => {
         const stepsField = [
             {
               active: true,
@@ -178,11 +186,13 @@ describe('<StepWizard />', () => {
               ]
             }
           ]
- 
-        renderWithTheme(<StepWizard totalSteps={stepsField} />);
-        const btnNext = screen.getByText(/continuar/i);
-        fireEvent.click(btnNext)
-
+          renderWithTheme(<StepWizard totalSteps={stepsField} />);
+        
+          await act(async () => {
+            const btnNext = screen.getByText('Continuar');
+            fireEvent.click(btnNext)
+          })
+      
         expect(screen.queryByLabelText(/cep/i)).not.toBeInTheDocument()
     })
     
