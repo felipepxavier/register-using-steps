@@ -92,7 +92,9 @@ function StepWizard({ totalSteps }: StepWizardProps) {
 
   return (
     <S.Step>
-      <S.Title>Preencha os campos</S.Title>
+      <S.Title>
+        Preencha os campos ({`${isActivatedIndex + 1}/${steps.length}`})
+      </S.Title>
 
       {steps[isActivatedIndex].fields.map((field) => (
         <S.Field key={field.name}>
@@ -122,7 +124,7 @@ function StepWizard({ totalSteps }: StepWizardProps) {
         </S.Button>
         <S.Button
           onClick={() => handleNextStep(isActivatedIndex + 1)}
-          isDisabled={isActivatedIndex + 1 > steps.length}
+          isDisabled={isActivatedIndex + 1 === steps.length}
         >
           Continuar
         </S.Button>
