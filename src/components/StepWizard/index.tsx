@@ -1,6 +1,5 @@
-import { useMemo, useState } from 'react';
-import { checkValidation, validateResult } from './check-validation';
-import * as S from './styles';
+import { useState } from 'react';
+import { Steps } from './Steps';
 
 export type Field = {
   name: string;
@@ -11,125 +10,31 @@ export type Field = {
   customRegexValidationMessage?: string;
 };
 
-type Step = {
+export type Step = {
   active: boolean;
   fields: Field[];
 };
 
-type StepWizardProps = {
+export type StepWizardProps = {
   totalSteps: Step[];
 };
 
-export type saveValuesProps = {
-  [key: string]: string;
-};
-
-type errorProps = {
-  [key: string]: boolean | string;
+export type StepsProps = {
+  totalSteps: Step[];
+  handleSession: (state: boolean) => void;
 };
 
 function StepWizard({ totalSteps }: StepWizardProps) {
-  const [steps, setSteps] = useState<Step[]>(totalSteps);
-  const [saveValues, setSaveValues] = useState({} as saveValuesProps);
-  const [errors, setErrors] = useState({} as errorProps);
+  const [session, setSession] = useState({ finally: false });
 
-  const isActivatedIndex = useMemo(
-    () => steps.findIndex((step) => step.active),
-    [steps]
-  );
-
-  const handleUpdateActivedStep =
-    (activedStepIndex: number) => (step: Step, index: number) =>
-      index === activedStepIndex
-        ? { ...step, active: true }
-        : { ...step, active: false };
-
-  const handleValidateValues = (): Promise<validateResult> =>
-    new Promise((resolve, reject) => {
-      try {
-        const validate = checkValidation(
-          saveValues,
-          steps[isActivatedIndex].fields
-        );
-        resolve(validate);
-      } catch (error) {
-        reject(error);
-      }
-    });
-
-  const handleNextStep = (nextStep: number) => {
-    if (nextStep === steps.length) {
-      return;
-    }
-
-    handleValidateValues()
-      .then((validate) => {
-        const isError = Object.values(validate).some(
-          (hasError) => typeof hasError === 'boolean' && hasError
-        );
-        setErrors(validate);
-        return isError;
-      })
-      .then((isError) => {
-        if (isError) {
-          return;
-        }
-        setSteps((oldState) => oldState.map(handleUpdateActivedStep(nextStep)));
-      });
+  const handleSession = (state: boolean) => {
+    setSession({ finally: state });
   };
 
-  const handlePreviousStep = (previousStep: number) => {
-    if (previousStep < 0) {
-      return;
-    }
-
-    setSteps((oldState) => oldState.map(handleUpdateActivedStep(previousStep)));
-  };
-
-  const handleChangeValue = (name: string, value: string) => {
-    setSaveValues((oldState) => ({ ...oldState, [name]: value }));
-  };
-
-  return (
-    <S.Step>
-      <S.Title>
-        Preencha os campos ({`${isActivatedIndex + 1}/${steps.length}`})
-      </S.Title>
-
-      {steps[isActivatedIndex].fields.map((field) => (
-        <S.Field key={field.name}>
-          <S.Label htmlFor={field.name}>{field.label}</S.Label>
-          <S.Input
-            id={field.name}
-            name={field.name}
-            placeholder={field.label}
-            isError={!!errors[field.name]}
-            onChange={(event) =>
-              handleChangeValue(field.name, event.target.value)
-            }
-            value={saveValues[field.name] || ''}
-          />
-          {errors[`${field.name}-message`] && (
-            <S.Message>{errors[`${field.name}-message`]}</S.Message>
-          )}
-        </S.Field>
-      ))}
-
-      <S.Navigate>
-        <S.Button
-          onClick={() => handlePreviousStep(isActivatedIndex - 1)}
-          isDisabled={isActivatedIndex - 1 < 0}
-        >
-          Voltar
-        </S.Button>
-        <S.Button
-          onClick={() => handleNextStep(isActivatedIndex + 1)}
-          isDisabled={isActivatedIndex + 1 === steps.length}
-        >
-          Continuar
-        </S.Button>
-      </S.Navigate>
-    </S.Step>
+  return !session.finally ? (
+    <Steps totalSteps={totalSteps} handleSession={handleSession} />
+  ) : (
+    <h1>obrigado</h1>
   );
 }
 

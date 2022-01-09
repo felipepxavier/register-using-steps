@@ -1,4 +1,5 @@
 import { StepWizard } from '../../components/StepWizard';
+import * as S from './styles';
 
 function NewClient() {
   const stepsField = [
@@ -54,7 +55,11 @@ function NewClient() {
       ],
     },
   ];
-  return <StepWizard totalSteps={stepsField} />;
+  return (
+    <S.Container>
+      <StepWizard totalSteps={stepsField} />
+    </S.Container>
+  );
 }
 
 export default NewClient;

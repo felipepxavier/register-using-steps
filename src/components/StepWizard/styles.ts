@@ -83,13 +83,14 @@ export const Navigate = styled.div`
   justify-content: space-between;
 
   ${({ theme }) => css`
-    margin-top: ${theme.spacings.large};
+    padding-top: ${theme.spacings.large};
     gap: ${theme.spacings.xsmall};
+    border-top: 1px solid ${theme.colors.gray};
   `}
 `;
 
 type ButtonProps = {
-  isDisabled: boolean;
+  isDisabled?: boolean;
 };
 
 export const Button = styled.button.attrs({
@@ -121,4 +122,9 @@ export const Button = styled.button.attrs({
         filter: brightness(1);
       }
     `}
+`;
+
+export const ContainerFields = styled.div`
+  height: 100%;
+  min-height: 34rem;
 `;
