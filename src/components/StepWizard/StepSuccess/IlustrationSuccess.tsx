@@ -6,7 +6,6 @@ function IlustrationSuccess({ width }: IlustrationProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      data-name="Layer 1"
       width={width}
       viewBox="0 0 697.96287 631.46323"
       aria-labelledby="doneTitle doneDesc"

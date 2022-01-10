@@ -1,6 +1,6 @@
 import { screen, fireEvent } from '@testing-library/react';
 import { renderWithTheme } from 'utils/tests/helpers';
-import { StepSuccess } from './StepSuccess';
+import { StepSuccess } from '.';
 
 describe('<StepSuccess />', () => {
   it('should render component', () => {
