@@ -340,7 +340,7 @@ describe('<Steps />', () => {
 
     fireEvent.change(nameInput, { target: { value: 'myName' } });
     fireEvent.change(lasNameInput, { target: { value: 'lastName' } });
-    fireEvent.change(emailInput, { target: { value: 'email' } });
+    fireEvent.change(emailInput, { target: { value: 'email@gmail.com' } });
 
     const btnNext = screen.getByText('Continuar');
 
@@ -363,5 +363,94 @@ describe('<Steps />', () => {
     expect(cepInput).toBeInTheDocument();
     expect(endereco1Input).toBeInTheDocument();
     expect(endereco2Input).toBeInTheDocument();
+  });
+
+  it('should called callbackData() end isSessionFinale() if is steps is successfully', async () => {
+    const stepsField = [
+      {
+        active: true,
+
+        fields: [
+          {
+            name: 'name',
+            label: 'Nome',
+            required: true,
+          },
+          {
+            name: 'last-name',
+            label: 'Sobrenome',
+            required: true,
+          },
+          {
+            name: 'email',
+            label: 'E-mail',
+            required: true,
+          },
+          {
+            name: 'phone',
+            label: 'Telefone',
+            required: false,
+          },
+        ],
+      },
+      {
+        active: false,
+        fields: [
+          {
+            name: 'zip-code',
+            label: 'CEP',
+            required: true,
+          },
+          {
+            name: 'address-1',
+            label: 'Endereço 1',
+            required: true,
+          },
+          {
+            name: 'address-2',
+            label: 'Endereço 2',
+            required: false,
+          },
+        ],
+      },
+    ];
+    const callbackDataMocked = jest.fn();
+    const isSessionFinaleMocked = jest.fn();
+    renderWithTheme(
+      <Steps
+        totalSteps={stepsField}
+        isSessionFinale={isSessionFinaleMocked}
+        callbackData={callbackDataMocked}
+      />
+    );
+
+    const nameInput = screen.getByPlaceholderText(/^nome/i);
+    const lasNameInput = screen.getByPlaceholderText(/sobrenome/i);
+    const emailInput = screen.getByPlaceholderText(/e-mail/i);
+
+    fireEvent.change(nameInput, { target: { value: 'myName' } });
+    fireEvent.change(lasNameInput, { target: { value: 'lastName' } });
+    fireEvent.change(emailInput, { target: { value: 'email@gmail.com' } });
+
+    const btnNext = screen.getByText('Continuar');
+
+    await act(async () => {
+      fireEvent.click(btnNext);
+    });
+
+    const cepInput = screen.getByPlaceholderText(/^cep/i);
+    const endereco1Input = screen.getByPlaceholderText(/^endereço 1/i);
+    const endereco2Input = screen.getByPlaceholderText(/^endereço 2/i);
+
+    fireEvent.change(cepInput, { target: { value: '1111' } });
+    fireEvent.change(endereco1Input, { target: { value: 'loren ipsun' } });
+    fireEvent.change(endereco2Input, { target: { value: 'loren ipsun 2' } });
+
+    await act(async () => {
+      fireEvent.click(btnNext);
+    });
+
+    expect(callbackDataMocked).toHaveBeenCalledTimes(1);
+    expect(isSessionFinaleMocked).toHaveBeenCalledTimes(1);
   });
 });

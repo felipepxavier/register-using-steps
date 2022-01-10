@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { checkValidation, ValidateResult } from './check-validation';
+import { checkValidation, ValidateResult } from './checkValidation';
 import { Step } from '.';
 import * as S from './styles';
 import { Button } from './shared/styles';
