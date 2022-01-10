@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
 import { checkValidation, ValidateResult } from './check-validation';
-import { Step, StepsProps } from '.';
+import { Step } from '.';
 import * as S from './styles';
+import { Button } from './shared/styles';
 
 export type SaveValuesProps = {
   [key: string]: string;
@@ -11,7 +12,13 @@ type ErrorProps = {
   [key: string]: boolean | string;
 };
 
-function Steps({ totalSteps, handleSession }: StepsProps) {
+export type StepsProps = {
+  totalSteps: Step[];
+  isSessionFinale: (state: boolean) => void;
+  callbackData: (arg: SaveValuesProps) => void;
+};
+
+function Steps({ totalSteps, isSessionFinale, callbackData }: StepsProps) {
   const [steps, setSteps] = useState<Step[]>(totalSteps);
   const [saveValues, setSaveValues] = useState({} as SaveValuesProps);
   const [errors, setErrors] = useState({} as ErrorProps);
@@ -59,7 +66,8 @@ function Steps({ totalSteps, handleSession }: StepsProps) {
           return;
         }
         if (finallySession) {
-          handleSession(true);
+          callbackData(saveValues);
+          isSessionFinale(true);
         } else {
           setSteps((oldState) =>
             oldState.map(handleUpdateActivedStep(nextStep))
@@ -108,14 +116,14 @@ function Steps({ totalSteps, handleSession }: StepsProps) {
       </S.ContainerFields>
 
       <S.Navigate>
-        <S.Button
+        <Button
           onClick={() => handlePreviousStep(isActivatedIndex - 1)}
           isDisabled={isActivatedIndex - 1 < 0}
         >
           Voltar
-        </S.Button>
+        </Button>
 
-        <S.Button
+        <Button
           onClick={() =>
             handleNextStep({
               nextStep: isActivatedIndex + 1,
@@ -124,7 +132,7 @@ function Steps({ totalSteps, handleSession }: StepsProps) {
           }
         >
           {isActivatedIndex + 1 === steps.length ? 'Finalizar' : 'Continuar'}
-        </S.Button>
+        </Button>
       </S.Navigate>
     </S.Step>
   );

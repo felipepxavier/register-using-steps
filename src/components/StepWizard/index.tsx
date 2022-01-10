@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Steps } from './Steps';
+import { SaveValuesProps, Steps } from './Steps';
+import { StepSuccess } from './StepSuccess';
 
 export type Field = {
   name: string;
@@ -17,24 +18,24 @@ export type Step = {
 
 export type StepWizardProps = {
   totalSteps: Step[];
+  callbackData: (arg: SaveValuesProps) => void;
 };
 
-export type StepsProps = {
-  totalSteps: Step[];
-  handleSession: (state: boolean) => void;
-};
-
-function StepWizard({ totalSteps }: StepWizardProps) {
+function StepWizard({ totalSteps, callbackData }: StepWizardProps) {
   const [session, setSession] = useState({ finally: false });
 
-  const handleSession = (state: boolean) => {
+  const isSessionFinale = (state: boolean) => {
     setSession({ finally: state });
   };
 
   return !session.finally ? (
-    <Steps totalSteps={totalSteps} handleSession={handleSession} />
+    <Steps
+      totalSteps={totalSteps}
+      isSessionFinale={isSessionFinale}
+      callbackData={callbackData}
+    />
   ) : (
-    <h1>obrigado</h1>
+    <StepSuccess isSessionFinale={isSessionFinale} />
   );
 }
 

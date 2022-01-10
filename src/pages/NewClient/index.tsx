@@ -1,3 +1,4 @@
+import { SaveValuesProps } from 'components/StepWizard/Steps';
 import { StepWizard } from '../../components/StepWizard';
 import * as S from './styles';
 
@@ -54,10 +55,35 @@ function NewClient() {
         },
       ],
     },
+    {
+      active: false,
+      fields: [
+        {
+          name: 'birth-data',
+          label: 'Data de nascimento',
+          required: true,
+        },
+        {
+          name: 'cpf',
+          label: 'CPF',
+          required: true,
+        },
+        {
+          name: 'rent',
+          label: 'Renda Mensal',
+          required: true,
+        },
+      ],
+    },
   ];
+
+  const callbackData = (data: SaveValuesProps) => {
+    console.log('data=>', data);
+  };
+
   return (
     <S.Container>
-      <StepWizard totalSteps={stepsField} />
+      <StepWizard totalSteps={stepsField} callbackData={callbackData} />
     </S.Container>
   );
 }
