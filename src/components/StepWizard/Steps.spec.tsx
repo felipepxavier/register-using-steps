@@ -2,7 +2,7 @@ import { screen, fireEvent, act } from '@testing-library/react';
 import { renderWithTheme } from 'utils/tests/helpers';
 import { Steps } from './Steps';
 
-describe('<StepWizard />', () => {
+describe('<Steps />', () => {
   it('should render component', () => {
     const stepsField = [
       {
