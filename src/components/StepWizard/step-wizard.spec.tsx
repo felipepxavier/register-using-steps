@@ -59,7 +59,11 @@ describe('<StepWizard />', () => {
     ];
 
     renderWithTheme(
-      <Steps totalSteps={stepsField} handleSession={jest.fn()} />
+      <Steps
+        totalSteps={stepsField}
+        isSessionFinale={jest.fn()}
+        callbackData={jest.fn()}
+      />
     );
 
     expect(screen.getByText(/preencha os campos/i)).toBeInTheDocument();
@@ -116,7 +120,11 @@ describe('<StepWizard />', () => {
     ];
 
     renderWithTheme(
-      <Steps totalSteps={stepsField} handleSession={jest.fn()} />
+      <Steps
+        totalSteps={stepsField}
+        isSessionFinale={jest.fn()}
+        callbackData={jest.fn()}
+      />
     );
 
     const nameInput = screen.getByPlaceholderText(/^nome/i);
@@ -186,7 +194,11 @@ describe('<StepWizard />', () => {
       },
     ];
     renderWithTheme(
-      <Steps totalSteps={stepsField} handleSession={jest.fn()} />
+      <Steps
+        totalSteps={stepsField}
+        isSessionFinale={jest.fn()}
+        callbackData={jest.fn()}
+      />
     );
 
     await act(async () => {
@@ -247,7 +259,11 @@ describe('<StepWizard />', () => {
       },
     ];
     renderWithTheme(
-      <Steps totalSteps={stepsField} handleSession={jest.fn()} />
+      <Steps
+        totalSteps={stepsField}
+        isSessionFinale={jest.fn()}
+        callbackData={jest.fn()}
+      />
     );
 
     await act(async () => {
@@ -311,7 +327,11 @@ describe('<StepWizard />', () => {
       },
     ];
     renderWithTheme(
-      <Steps totalSteps={stepsField} handleSession={jest.fn()} />
+      <Steps
+        totalSteps={stepsField}
+        isSessionFinale={jest.fn()}
+        callbackData={jest.fn()}
+      />
     );
 
     const nameInput = screen.getByPlaceholderText(/^nome/i);
