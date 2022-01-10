@@ -1,4 +1,4 @@
-import { checkValidation } from './check-validation';
+import { checkValidation } from './checkValidation';
 
 describe('checkValidation()', () => {
   it('should validate fields', () => {
