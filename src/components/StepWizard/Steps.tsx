@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react';
+import { v4 as uniqueId } from 'uuid';
 import { checkValidation, ValidateResult } from './checkValidation';
 import { Step } from '.';
 import * as S from './styles';
-import { Button } from './shared/styles';
+import { Button, Card } from './shared/styles';
 
 export type SaveValuesProps = {
   [key: string]: string;
@@ -66,7 +67,10 @@ function Steps({ totalSteps, isSessionFinale, callbackData }: StepsProps) {
           return;
         }
         if (finallySession) {
-          callbackData(saveValues);
+          callbackData({
+            ...saveValues,
+            id: uniqueId(),
+          });
           isSessionFinale(true);
         } else {
           setSteps((oldState) =>
@@ -89,10 +93,9 @@ function Steps({ totalSteps, isSessionFinale, callbackData }: StepsProps) {
   };
 
   return (
-    <S.Step>
-      <S.Title>
-        Preencha os campos ({`${isActivatedIndex + 1}/${steps.length}`})
-      </S.Title>
+    <Card>
+      <S.Title>Etapa ({`${isActivatedIndex + 1}/${steps.length}`})</S.Title>
+      <S.Description>Preencha os campos</S.Description>
 
       <S.ContainerFields>
         {steps[isActivatedIndex].fields.map((field) => (
@@ -134,7 +137,7 @@ function Steps({ totalSteps, isSessionFinale, callbackData }: StepsProps) {
           {isActivatedIndex + 1 === steps.length ? 'Finalizar' : 'Continuar'}
         </Button>
       </S.Navigate>
-    </S.Step>
+    </Card>
   );
 }
 
