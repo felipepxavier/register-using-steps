@@ -41,3 +41,15 @@ export const Button = styled.button.attrs({
       max-width: 100%;
     `}
 `;
+
+export const Card = styled.section`
+  max-width: 40rem;
+  width: 100%;
+
+  ${({ theme }) => css`
+    padding: ${theme.spacings.medium};
+    margin: ${theme.spacings.medium};
+    background: ${theme.colors.white};
+    border-radius: ${theme.border.radius};
+  `}
+`;
