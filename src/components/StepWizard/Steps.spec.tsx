@@ -518,7 +518,7 @@ describe('<Steps />', () => {
     const lasNameInput = screen.getByPlaceholderText(/sobrenome/i);
     const emailInput = screen.getByPlaceholderText(/e-mail/i);
 
-    expect(title).toHaveTextContent('Preencha os campos (1/2)');
+    expect(title).toHaveTextContent('Etapa (1/2)');
 
     fireEvent.change(nameInput, { target: { value: 'myName' } });
     fireEvent.change(lasNameInput, { target: { value: 'lastName' } });
@@ -530,6 +530,6 @@ describe('<Steps />', () => {
       fireEvent.click(btnNext);
     });
 
-    expect(title).toHaveTextContent('Preencha os campos (2/2)');
+    expect(title).toHaveTextContent('Etapa (2/2)');
   });
 });
