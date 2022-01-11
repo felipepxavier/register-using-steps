@@ -453,4 +453,83 @@ describe('<Steps />', () => {
     expect(callbackDataMocked).toHaveBeenCalledTimes(1);
     expect(isSessionFinaleMocked).toHaveBeenCalledTimes(1);
   });
+
+  it('should update step count', async () => {
+    const stepsField = [
+      {
+        active: true,
+
+        fields: [
+          {
+            name: 'name',
+            label: 'Nome',
+            required: true,
+          },
+          {
+            name: 'last-name',
+            label: 'Sobrenome',
+            required: true,
+          },
+          {
+            name: 'email',
+            label: 'E-mail',
+            required: true,
+          },
+          {
+            name: 'phone',
+            label: 'Telefone',
+            required: false,
+          },
+        ],
+      },
+      {
+        active: false,
+        fields: [
+          {
+            name: 'zip-code',
+            label: 'CEP',
+            required: true,
+          },
+          {
+            name: 'address-1',
+            label: 'Endereço 1',
+            required: true,
+          },
+          {
+            name: 'address-2',
+            label: 'Endereço 2',
+            required: false,
+          },
+        ],
+      },
+    ];
+    const callbackDataMocked = jest.fn();
+    const isSessionFinaleMocked = jest.fn();
+    renderWithTheme(
+      <Steps
+        totalSteps={stepsField}
+        isSessionFinale={isSessionFinaleMocked}
+        callbackData={callbackDataMocked}
+      />
+    );
+    const title = screen.getByRole('heading', { level: 1 });
+
+    const nameInput = screen.getByPlaceholderText(/^nome/i);
+    const lasNameInput = screen.getByPlaceholderText(/sobrenome/i);
+    const emailInput = screen.getByPlaceholderText(/e-mail/i);
+
+    expect(title).toHaveTextContent('Preencha os campos (1/2)');
+
+    fireEvent.change(nameInput, { target: { value: 'myName' } });
+    fireEvent.change(lasNameInput, { target: { value: 'lastName' } });
+    fireEvent.change(emailInput, { target: { value: 'email@gmail.com' } });
+
+    const btnNext = screen.getByText('Continuar');
+
+    await act(async () => {
+      fireEvent.click(btnNext);
+    });
+
+    expect(title).toHaveTextContent('Preencha os campos (2/2)');
+  });
 });
