@@ -19,11 +19,14 @@ export default {
   },
   colors: {
     primary: '#85b385',
-    secondary: '#beffbe',
+    secondary: '#566b7c',
+    greenLight: '#d7e3d1',
+    blueLight: '#e2ebf1',
     white: '#FAFAFA',
     gray: '#808080',
-    black: '#0C0C0C',
+    grayLight: '#b2b2b2',
     red: '#DC143C',
+    black: '#0c0c0c',
   },
   spacings: {
     xxsmall: '0.4rem',

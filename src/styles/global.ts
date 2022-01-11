@@ -15,7 +15,7 @@ export default createGlobalStyle`
   ${({ theme }) => css`
     html {
       font-size: 10px;
-      background: ${theme.colors.white};
+      background: ${theme.colors.secondary};
     }
 
     body,
