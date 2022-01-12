@@ -23,6 +23,7 @@ module.exports = {
     'default-param-last': 'off',
     'import/no-unresolved': 'off',
     'import/extensions': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
     'import/prefer-default-export': 'off',
     'prettier/prettier': [
       'error',
