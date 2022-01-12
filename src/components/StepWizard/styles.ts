@@ -117,4 +117,8 @@ export const ContainerFields = styled.div`
     max-height: 24rem;
     overflow-y: scroll;
   }
+
+  @media only screen and (max-width: 400px) {
+    max-height: none;
+  }
 `;
