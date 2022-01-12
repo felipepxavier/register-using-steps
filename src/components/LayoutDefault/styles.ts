@@ -5,7 +5,9 @@ export const Container = styled.div`
 `;
 export const Footer = styled.footer`
   height: 6rem;
-  width: 100%;
+  width: calc(100% - 50px);
+  position: absolute;
+  bottom: 0;
 
   ${({ theme }) => css`
     background: ${theme.colors.primary};
@@ -15,4 +17,9 @@ export const Footer = styled.footer`
     align-items: center;
     display: flex;
   `}
+
+  @media (max-height: 600px) {
+    position: relative;
+    width: 100%;
+  }
 `;
