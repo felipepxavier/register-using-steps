@@ -18,7 +18,7 @@ export const Footer = styled.footer`
     display: flex;
   `}
 
-  @media (max-height: 600px) {
+  @media (max-height: 660px) {
     position: relative;
     width: 100%;
   }
