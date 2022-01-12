@@ -6,7 +6,7 @@ export const Container = styled.section`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  height: calc(100vh - 6rem);
+
   ${({ theme }) => css`
     padding: ${theme.spacings.medium};
   `}
