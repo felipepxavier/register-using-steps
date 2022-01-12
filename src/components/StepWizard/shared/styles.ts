@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 type ButtonProps = {
   isDisabled?: boolean;
@@ -42,9 +42,17 @@ export const Button = styled.button.attrs({
     `}
 `;
 
+const topAnimation = keyframes`
+  0% { transform: translateY(-15px); opacity: 0 }
+  100% {transform: translateX(0) opacity: 1 }
+`;
+
 export const Card = styled.section`
   max-width: 40rem;
   width: 100%;
+
+  animation-name: ${topAnimation};
+  animation-duration: 500ms;
 
   ${({ theme }) => css`
     padding: ${theme.spacings.medium};
