@@ -32,7 +32,7 @@ export const StyledMenu = styled.nav<MenuProps>`
     a {
       display: flex;
       width: 100%;
-      font-size: ${theme.font.sizes.large};
+      font-size: ${theme.font.sizes.xlarge};
       padding: 15px 0;
       color: ${theme.colors.gray};
       text-decoration: none;
@@ -48,8 +48,7 @@ export const StyledMenu = styled.nav<MenuProps>`
       }
 
       @media (max-width: 576px) {
-        font-size: 1.5rem;
-        text-align: center;
+        justify-content: center;
       }
     }
   `}
