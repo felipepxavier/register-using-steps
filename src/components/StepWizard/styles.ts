@@ -120,5 +120,6 @@ export const ContainerFields = styled.div`
 
   @media only screen and (max-width: 400px) {
     max-height: none;
+    min-height: 30rem;
   }
 `;
