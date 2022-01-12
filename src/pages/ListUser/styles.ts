@@ -69,22 +69,6 @@ export const SubTitle = styled.h2`
   `}
 `;
 
-export const Footer = styled.footer`
-  height: 6rem;
-  width: 100%;
-  bottom: 0;
-  position: fixed;
-
-  ${({ theme }) => css`
-    background: ${theme.colors.primary};
-    padding: ${theme.spacings.small} ${theme.spacings.medium};
-    color: ${theme.colors.white};
-    font-size: ${theme.font.sizes.xsmall};
-    align-items: center;
-    display: flex;
-  `}
-`;
-
 export const Table = styled.table`
   width: 100%;
   max-width: 60rem;

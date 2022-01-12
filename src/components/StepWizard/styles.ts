@@ -111,4 +111,10 @@ export const Navigate = styled.div`
 export const ContainerFields = styled.div`
   height: 100%;
   min-height: 34rem;
+
+  @media only screen and (max-width: 1368px) and (min-width: 400px) {
+    min-height: 0;
+    max-height: 24rem;
+    overflow-y: scroll;
+  }
 `;

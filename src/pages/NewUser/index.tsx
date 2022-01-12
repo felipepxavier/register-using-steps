@@ -89,10 +89,6 @@ function NewClient() {
       <S.Container>
         <StepWizard totalSteps={stepsField} callbackData={handleAddUser} />
       </S.Container>
-
-      <S.Footer>
-        Loren ipsun © 2022 All rights reserved | Privacy Policy
-      </S.Footer>
     </>
   );
 }

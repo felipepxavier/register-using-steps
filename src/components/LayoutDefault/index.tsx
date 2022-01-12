@@ -1,15 +1,18 @@
 import { Sidebar } from 'components/Sidebar';
-import { Container } from './styles';
+import * as S from './styles';
 
 type LayoutProps = {
   children: JSX.Element;
 };
 function LayoutDefault({ children }: LayoutProps) {
   return (
-    <Container>
+    <S.Container>
       <Sidebar />
       {children}
-    </Container>
+      <S.Footer>
+        Loren ipsun © 2022 All rights reserved | Privacy Policy
+      </S.Footer>
+    </S.Container>
   );
 }
 

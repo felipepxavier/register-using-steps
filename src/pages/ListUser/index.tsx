@@ -61,10 +61,6 @@ function ListUser() {
           </Card>
         )}
       </S.Container>
-
-      <S.Footer>
-        Loren ipsun © 2022 All rights reserved | Privacy Policy
-      </S.Footer>
     </>
   );
 }
