@@ -79,4 +79,15 @@ describe('<ListUser/>', () => {
 
     expect(navigateMocked).toHaveBeenCalledTimes(1);
   });
+
+  it('should show Cadastrar button if not exists users', () => {
+    (store.getState as jest.Mock).mockReturnValue({
+      users: [],
+    });
+    renderWithThemeEndRouter(<ListUser />);
+
+    expect(
+      screen.getByText('Sem informações ainda, vamos cadastrar?')
+    ).toBeInTheDocument();
+  });
 });
