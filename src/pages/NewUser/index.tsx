@@ -76,7 +76,7 @@ const stepsField = [
     ],
   },
 ];
-function NewClient() {
+function NewUser() {
   const dispatch = useDispatch();
 
   const handleAddUser = (data: any) => {
@@ -93,4 +93,4 @@ function NewClient() {
   );
 }
 
-export default NewClient;
+export default NewUser;
