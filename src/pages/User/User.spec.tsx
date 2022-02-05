@@ -2,6 +2,7 @@ import { screen, act } from '@testing-library/react';
 import { renderWithThemeEndRouter } from 'utils/tests/helpers';
 import { useParams as useParamsMocked } from 'react-router-dom';
 import store from 'store';
+import { notDeepEqual } from 'assert';
 import User from '.';
 
 jest.mock('react-router-dom', () => ({
@@ -45,5 +46,25 @@ describe('<User />', () => {
     expect(screen.getByText(userMocked.email)).toBeInTheDocument();
     expect(screen.getByText(userMocked.phone)).toBeInTheDocument();
     expect(screen.getByText(userMocked.zipCode)).toBeInTheDocument();
+  });
+
+  it('should show link to register if not exist user', async () => {
+    (useParamsMocked as jest.Mock).mockReturnValue({ id: '11' });
+    (store.getState as jest.Mock).mockReturnValue({
+      users: [userMocked],
+    });
+
+    await act(async () => {
+      renderWithThemeEndRouter(<User />);
+    });
+
+    expect(screen.queryByText(userMocked.name)).not.toBeInTheDocument();
+    expect(screen.queryByText(userMocked.lastName)).not.toBeInTheDocument();
+    expect(screen.queryByText(userMocked.email)).not.toBeInTheDocument();
+    expect(screen.queryByText(userMocked.phone)).not.toBeInTheDocument();
+    expect(screen.queryByText(userMocked.zipCode)).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: /cadastrar/i })
+    ).toBeInTheDocument();
   });
 });
